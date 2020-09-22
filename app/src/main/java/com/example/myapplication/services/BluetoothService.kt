@@ -24,10 +24,7 @@ class BluetoothService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        startTimer()
-
-        Log.d("Service", "Произошел запуск сервиса!")
-
+        Log.d("Service", "Service started!")
     }
 
     override fun onBind(intent: Intent): IBinder {
@@ -48,17 +45,6 @@ class BluetoothService : Service() {
             .build()
 
         return bluetoothClient.scanBleDevices(scanSettings, scanFilter)
-    }
-
-    var count = 0
-
-    fun startTimer() {
-        val handler = Handler()
-        handler.postDelayed(
-            {
-                println("Запуск сервиса...")
-            }, 10000
-        )
     }
 
     fun startScan() {

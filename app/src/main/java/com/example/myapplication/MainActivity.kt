@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
             bluetoothService = binder.getService()
             mBound = true
             Log.d("Main Activity", "onServiceConnected: $componentName")
-            bluetoothService?.startTimer()
         }
 
         override fun onServiceDisconnected(name: ComponentName?) {
@@ -57,14 +56,13 @@ class MainActivity : AppCompatActivity() {
         bindService(intent, connection, Context.BIND_AUTO_CREATE)
     }
 
-    override fun onStop() {
-        super.onStop()
-        //unbindService(connection)
-        //mBound = false
+    override fun onDestroy() {
+        super.onDestroy()
+        unbindService(connection)
+        mBound = false
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
